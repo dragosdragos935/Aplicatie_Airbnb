@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../providers/auth_provider.dart';
 
 class ProfileTab extends StatelessWidget {
   const ProfileTab({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -33,29 +37,31 @@ class ProfileTab extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'John Doe',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        authProvider.isAdmin ? 'Admin User' : 'Regular User',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    const Text('john.doe@example.com'),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () {
-                        // TODO: Edit profile
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFE3C5B),
+                      const SizedBox(height: 4),
+                      Text(authProvider.isAdmin ? 'admin@admin.com' : 'user@example.com'),
+                      const SizedBox(height: 8),
+                      ElevatedButton(
+                        onPressed: () {
+                          // TODO: Edit profile
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFE3C5B),
+                        ),
+                        child: const Text('Edit Profile'),
                       ),
-                      child: const Text('Edit Profile'),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -87,42 +93,52 @@ class ProfileTab extends StatelessWidget {
             },
           ),
           const Divider(),
-          // Admin Section
-          const Padding(
-            padding: EdgeInsets.all(16),
-            child: Text(
-              'Host Tools',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+          // Admin Section - Only visible for admin users
+          if (authProvider.isAdmin) ...[
+            const Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                'Host Tools',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.add_home_work),
-            title: const Text('Add New Property'),
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: () {
-              // TODO: Navigate to add property
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.list_alt),
-            title: const Text('Manage Properties'),
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: () {
-              // TODO: Navigate to manage properties
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.analytics),
-            title: const Text('Analytics'),
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: () {
-              // TODO: Navigate to analytics
-            },
-          ),
-          const Divider(),
+            ListTile(
+              leading: const Icon(Icons.add_home_work),
+              title: const Text('Add New Property'),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {
+                Navigator.pushNamed(context, '/add-property');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.list_alt),
+              title: const Text('Manage Properties'),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {
+                Navigator.pushNamed(context, '/manage-properties');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.add_card),
+              title: const Text('Add New Trip'),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {
+                Navigator.pushNamed(context, '/add-trip');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.analytics),
+              title: const Text('Analytics'),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {
+                Navigator.pushNamed(context, '/analytics');
+              },
+            ),
+            const Divider(),
+          ],
           // Support Section
           ListTile(
             leading: const Icon(Icons.help_outline),
@@ -136,7 +152,8 @@ class ProfileTab extends StatelessWidget {
             leading: const Icon(Icons.logout),
             title: const Text('Logout'),
             onTap: () {
-              // TODO: Implement logout
+              authProvider.logout();
+              Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
             },
           ),
         ],

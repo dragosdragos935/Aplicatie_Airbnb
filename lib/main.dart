@@ -4,8 +4,11 @@ import 'screens/welcome/welcome_screen.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/signup_screen.dart';
 import 'screens/main/main_screen.dart';
+import 'screens/admin/add_property_screen.dart';
+import 'screens/admin/add_trip_screen.dart';
 import 'providers/auth_provider.dart';
 import 'providers/property_provider.dart';
+import 'providers/trip_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +23,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => PropertyProvider()),
+        ChangeNotifierProvider(create: (_) => TripProvider()),
       ],
       child: MaterialApp(
         title: 'Airbnb Clone',
@@ -36,6 +40,8 @@ class MyApp extends StatelessWidget {
           '/login': (context) => const LoginScreen(),
           '/signup': (context) => const SignupScreen(),
           '/main': (context) => const MainScreen(),
+          '/add-property': (context) => const AddPropertyScreen(),
+          '/add-trip': (context) => const AddTripScreen(),
         },
       ),
     );

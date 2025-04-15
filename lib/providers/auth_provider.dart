@@ -8,7 +8,7 @@ class AuthProvider with ChangeNotifier {
   bool get isAdmin => _isAdmin;
 
   Future<bool> login(String email, String password) async {
-    if (email == 'admin' && password == 'admin') {
+    if (email == 'admin@admin.com' && password == 'admin') {
       _isAuthenticated = true;
       _isAdmin = true;
       notifyListeners();
