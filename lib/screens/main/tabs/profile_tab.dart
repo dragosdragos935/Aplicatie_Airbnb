@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../providers/auth_provider.dart';
+import '../../profile/settings_screen.dart';
+import '../../profile/edit_profile_screen.dart';
+import '../../profile/personal_info_screen.dart';
+import '../../profile/payments_screen.dart';
+import '../../profile/security_screen.dart';
+import '../../profile/help_center_screen.dart';
 
 class ProfileTab extends StatelessWidget {
   const ProfileTab({super.key});
@@ -18,7 +24,12 @@ class ProfileTab extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              // TODO: Open settings
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsScreen(),
+                ),
+              );
             },
           ),
         ],
@@ -53,7 +64,12 @@ class ProfileTab extends StatelessWidget {
                       const SizedBox(height: 8),
                       ElevatedButton(
                         onPressed: () {
-                          // TODO: Edit profile
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EditProfileScreen(),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFFE3C5B),
@@ -73,7 +89,12 @@ class ProfileTab extends StatelessWidget {
             title: const Text('Personal Information'),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {
-              // TODO: Navigate to personal info
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PersonalInfoScreen(),
+                ),
+              );
             },
           ),
           ListTile(
@@ -81,7 +102,12 @@ class ProfileTab extends StatelessWidget {
             title: const Text('Payments & Payouts'),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {
-              // TODO: Navigate to payments
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PaymentsScreen(),
+                ),
+              );
             },
           ),
           ListTile(
@@ -89,7 +115,12 @@ class ProfileTab extends StatelessWidget {
             title: const Text('Login & Security'),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {
-              // TODO: Navigate to security
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SecurityScreen(),
+                ),
+              );
             },
           ),
           const Divider(),
@@ -145,7 +176,12 @@ class ProfileTab extends StatelessWidget {
             title: const Text('Help Center'),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {
-              // TODO: Navigate to help center
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HelpCenterScreen(),
+                ),
+              );
             },
           ),
           ListTile(
