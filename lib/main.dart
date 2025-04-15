@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
-import 'screens/welcome_screen.dart';
+import 'package:provider/provider.dart';
+import 'screens/welcome/welcome_screen.dart';
+import 'screens/auth/login_screen.dart';
+import 'screens/auth/signup_screen.dart';
+import 'screens/main/main_screen.dart';
+import 'providers/auth_provider.dart';
+import 'providers/property_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,17 +16,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Airbnb Clone',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFFF5A5F),
-          primary: const Color(0xFFFF5A5F),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => PropertyProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Airbnb Clone',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFFFE3C5B),
+            brightness: Brightness.light,
+          ),
+          useMaterial3: true,
         ),
-        useMaterial3: true,
+        home: const WelcomeScreen(),
+        routes: {
+          '/login': (context) => const LoginScreen(),
+          '/signup': (context) => const SignupScreen(),
+          '/main': (context) => const MainScreen(),
+        },
       ),
-      home: const WelcomeScreen(),
     );
   }
 }

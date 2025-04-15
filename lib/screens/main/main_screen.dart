@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../tabs/explore_tab.dart';
-import '../tabs/saved_tab.dart';
-import '../tabs/trips_tab.dart';
-import '../tabs/inbox_tab.dart';
-import '../tabs/profile_tab.dart';
+import 'tabs/explore_tab.dart';
+import 'tabs/saved_tab.dart';
+import 'tabs/trips_tab.dart';
+import 'tabs/inbox_tab.dart';
+import 'tabs/profile_tab.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -13,7 +13,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0;
+  int _selectedIndex = 0;
 
   final List<Widget> _tabs = [
     const ExploreTab(),
@@ -26,16 +26,16 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _tabs[_currentIndex],
+      body: _tabs[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
+        currentIndex: _selectedIndex,
         onTap: (index) {
           setState(() {
-            _currentIndex = index;
+            _selectedIndex = index;
           });
         },
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
+        selectedItemColor: const Color(0xFFFE3C5B),
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
@@ -47,11 +47,11 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Saved',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.card_travel),
+            icon: Icon(Icons.airplane_ticket),
             label: 'Trips',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message_outlined),
+            icon: Icon(Icons.chat_bubble_outline),
             label: 'Inbox',
           ),
           BottomNavigationBarItem(
